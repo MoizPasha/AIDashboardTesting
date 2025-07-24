@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 AI Data Visualization Dashboard
 
-## Getting Started
+An intelligent dashboard that generates interactive charts and visualizations using AI. Simply describe what you want to see, and the AI will create beautiful charts with realistic data using ECharts and Google's Gemini AI.
 
-First, run the development server:
+## ✨ Features
+
+- **🎯 Natural Language to Charts**: Describe your visualization needs in plain English
+- **📊 Multiple Chart Types**: Automatically generates line charts, bar charts, pie charts, and scatter plots
+- **🤖 AI-Powered**: Uses Google Gemini 1.5 Flash (free tier) for intelligent chart generation
+- **🎨 Interactive Visualizations**: Built with ECharts for smooth, interactive charts
+- **📱 Responsive Design**: Works beautifully on desktop and mobile
+- **🌙 Dark Mode Ready**: Professional dark theme with white text for better visibility
+- **💡 AI Insights**: Each chart includes AI-generated insights about the data
+- **🗂️ Multi-Chart Dashboard**: Generate multiple charts and manage them in a floating layout
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15 with TypeScript
+- **Styling**: Tailwind CSS 4
+- **Charts**: ECharts with React wrapper
+- **AI**: Google Gemini 1.5 Flash API
+- **Development**: React 19, Modern ES6+
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- A Google AI Studio account (free)
+- Gemini API key
+
+### 1. Clone and Install
+
+```bash
+git clone <your-repo-url>
+cd ai-dash-testing
+npm install
+```
+
+### 2. Get Your Gemini API Key
+
+1. Go to [Google AI Studio](https://aistudio.google.com/)
+2. Create a free account
+3. Generate an API key
+4. Copy the API key
+
+### 3. Set Up Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```bash
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎯 How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Enter a Prompt**: Describe the chart you want in the input field
+2. **AI Generation**: The AI analyzes your request and generates appropriate data and chart configuration
+3. **Interactive Charts**: View your generated charts with hover effects, legends, and insights
+4. **Multiple Charts**: Generate multiple charts and manage them on the same page
+5. **Close Charts**: Remove charts you no longer need with the × button
 
-## Learn More
+### 📝 Example Prompts
 
-To learn more about Next.js, take a look at the following resources:
+Try these sample prompts to see the AI in action:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+"Show me monthly sales data for 2024"
+"Create a pie chart of market share by region"
+"Display quarterly revenue growth trends"
+"Generate a bar chart comparing product categories"
+"Show customer satisfaction scores over time"
+"Create a line chart showing quarterly revenue, profit, and expenses for a tech company from 2020 to 2024"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── page.tsx              # Main dashboard page
+│   ├── layout.tsx            # App layout
+│   └── globals.css           # Global styles
+├── components/
+│   └── ChartCard.tsx         # Individual chart component
+└── services/
+    └── geminiService.ts      # AI API integration
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Key Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ChartCard Component
+- Renders ECharts with multiple chart types
+- Handles data transformation from AI response
+- Provides interactive features and styling
+- White text theme for dark mode compatibility
+
+### Gemini Service
+- Manages AI API calls to Google Gemini
+- Handles prompt engineering for chart generation
+- Parses AI responses into chart-ready data
+- Error handling and logging
+
+### Dashboard Page
+- Main UI with prompt input
+- Chart management and state handling
+- Responsive grid layout
+- Sample prompts and loading states
+
+## 🔧 Customization
+
+### Adding New Chart Types
+1. Update the `ChartData` interface in `geminiService.ts`
+2. Add new case in `generateEChartsOption()` in `ChartCard.tsx`
+3. Update the AI prompt to include the new chart type
+
+### Styling Charts
+Modify the chart styling in `ChartCard.tsx`:
+- Colors: Update `baseOption` and series configurations
+- Fonts: Modify `textStyle` properties
+- Layout: Adjust sizing and positioning
+
+### AI Prompt Engineering
+Enhance the AI prompts in `geminiService.ts` to:
+- Support more chart types
+- Generate more realistic data
+- Include additional metadata
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **API Key Error**: Make sure your Gemini API key is correctly set in `.env.local`
+2. **Charts Not Rendering**: Check browser console for ECharts errors
+3. **AI Response Issues**: Check console logs for AI response debugging info
+4. **Build Errors**: Ensure all dependencies are installed with `npm install`
+
+### Debug Mode
+The app includes detailed logging of AI responses in the browser console for debugging.
+
+## 📦 Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## 🚀 Deployment
+
+Deploy easily on Vercel (recommended for Next.js):
+
+1. Push your code to GitHub
+2. Connect your repo to Vercel
+3. Add your `NEXT_PUBLIC_GEMINI_API_KEY` environment variable
+4. Deploy!
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- **Google Gemini AI** for powerful natural language processing
+- **Apache ECharts** for beautiful, interactive visualizations
+- **Next.js Team** for the amazing React framework
+- **Tailwind CSS** for utility-first styling
+
+---
+
+**Built with ❤️ for testing AI-powered data visualization**
