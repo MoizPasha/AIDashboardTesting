@@ -143,37 +143,6 @@ Enhance the AI prompts in `geminiService.ts` to:
 3. **AI Response Issues**: Check console logs for AI response debugging info
 4. **Build Errors**: Ensure all dependencies are installed with `npm install`
 
-### Debug Mode
-The app includes detailed logging of AI responses in the browser console for debugging.
-
-## 📦 Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-## 🚀 Deployment
-
-Deploy easily on Vercel (recommended for Next.js):
-
-1. Push your code to GitHub
-2. Connect your repo to Vercel
-3. Add your `NEXT_PUBLIC_GEMINI_API_KEY` environment variable
-4. Deploy!
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 🙏 Acknowledgments
 
 - **Google Gemini AI** for powerful natural language processing
