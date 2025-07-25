@@ -54,7 +54,7 @@ src/
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/MoizPasha/AI-Dashboard-Prototype-1
+git clone --single-branch --branch feature/input_validation https://github.com/MoizPasha/AI-Dashboard-Prototype-1.git
 cd AI-Dashboard-Prototype-1
 node src/scripts/createModel.js
 npm install
