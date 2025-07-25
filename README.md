@@ -1,27 +1,49 @@
-# 🤖 AI Data Visualization Dashboard
+# 🧠 Input Validation – Feature Branch
 
-An intelligent dashboard that generates interactive charts and visualizations using AI. Simply describe what you want to see, and the AI will create beautiful charts with realistic data using ECharts and Google's Gemini AI.
+This feature branch introduces **Intent Detection** to the AI Dashboard using [`node-nlp`](https://github.com/axa-group/nlp.js). It enables the app to intelligently determine whether a user prompt is requesting a chart or not, helping avoid irrelevant or unsupported inputs, saving API call costs.
 
-## ✨ Features
+---
+## 📦 Based On
 
-- **🎯 Natural Language to Charts**: Describe your visualization needs in plain English
-- **📊 Multiple Chart Types**: Automatically generates line charts, bar charts, pie charts, and scatter plots
-- **🤖 AI-Powered**: Uses Google Gemini 1.5 Flash (free tier) for intelligent chart generation
-- **🎨 Interactive Visualizations**: Built with ECharts for smooth, interactive charts
-- **📱 Responsive Design**: Works beautifully on desktop and mobile
-- **🌙 Dark Mode Ready**: Professional dark theme with white text for better visibility
-- **💡 AI Insights**: Each chart includes AI-generated insights about the data
-- **🗂️ Multi-Chart Dashboard**: Generate multiple charts and manage them in a floating layout
+This project is based on [AI-Dash-testing](https://github.com/ABNmmd/AI-Dash-testing), created by [@ABNmmd](https://github.com/ABNmmd).
 
-## 🛠️ Tech Stack
+This fork extends the original dashboard by adding an NLP-based intent classifier to filter and handle prompt commands intelligently.
+---
+## 🚀 What This Feature Does
 
-- **Frontend**: Next.js 15 with TypeScript
-- **Styling**: Tailwind CSS 4
-- **Charts**: ECharts with React wrapper
-- **AI**: Google Gemini 1.5 Flash API
-- **Development**: React 19, Modern ES6+
+- Detects whether the user wants to **generate a chart** or not.
+- Prevents unintended chart generation attempts by checking the user's intent.
+- Alerts users to rephrase their prompt if intent confidence is too low.
+- NLP model is trained once and reused via API calls (Next.js serverless route).
 
-## 🚀 Getting Started
+---
+
+## 🧠 How It Works
+
+1. A small NLP model is trained using predefined chart-related and non-chart phrases.
+2. The model is saved to `src/models/intentmodel.nlp`.
+3. A Next.js API route (`/api/classify-intent`) receives the prompt, uses `node-nlp` to detect intent, and returns the top intent and confidence score.
+4. The frontend calls this API and only proceeds with chart generation if:
+   - The intent is `"chart_command"`, and
+   - The confidence score is at least `0.3`.
+
+---
+
+## 🗂 File Structure (New & Relevant Files)
+
+```bash
+src/
+├── app/
+│   └── api/
+│       └── classify-intent/
+│           └── route.ts        # API route that handles intent classification
+│
+├── scripts/
+│   └── createModel.js          # Script to train and save the NLP model
+│
+├── models/
+│   └── intentmodel.nlp         # Saved model file (created after training)
+```
 
 ### Prerequisites
 
@@ -32,10 +54,10 @@ An intelligent dashboard that generates interactive charts and visualizations us
 ### 1. Clone and Install
 
 ```bash
-git clone <your-repo-url>
-cd ai-dash-testing
-npm install
+git clone https://github.com/MoizPasha/AI-Dashboard-Prototype-1
+cd AI-Dashboard-Prototype-1
 node src/scripts/createModel.js
+npm install
 ```
 
 ### 2. Get Your Gemini API Key
@@ -60,97 +82,3 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to see the dashboard.
-
-## 🎯 How to Use
-
-1. **Enter a Prompt**: Describe the chart you want in the input field
-2. **AI Generation**: The AI analyzes your request and generates appropriate data and chart configuration
-3. **Interactive Charts**: View your generated charts with hover effects, legends, and insights
-4. **Multiple Charts**: Generate multiple charts and manage them on the same page
-5. **Close Charts**: Remove charts you no longer need with the × button
-
-### 📝 Example Prompts
-
-Try these sample prompts to see the AI in action:
-
-```
-"Show me monthly sales data for 2024"
-"Create a pie chart of market share by region"
-"Display quarterly revenue growth trends"
-"Generate a bar chart comparing product categories"
-"Show customer satisfaction scores over time"
-"Create a line chart showing quarterly revenue, profit, and expenses for a tech company from 2020 to 2024"
-```
-
-## 🏗️ Project Structure
-
-```
-src/
-├── app/
-│   ├── page.tsx              # Main dashboard page
-│   ├── layout.tsx            # App layout
-│   └── globals.css           # Global styles
-├── components/
-│   └── ChartCard.tsx         # Individual chart component
-└── services/
-    └── geminiService.ts      # AI API integration
-```
-
-## 🎨 Key Components
-
-### ChartCard Component
-- Renders ECharts with multiple chart types
-- Handles data transformation from AI response
-- Provides interactive features and styling
-- White text theme for dark mode compatibility
-
-### Gemini Service
-- Manages AI API calls to Google Gemini
-- Handles prompt engineering for chart generation
-- Parses AI responses into chart-ready data
-- Error handling and logging
-
-### Dashboard Page
-- Main UI with prompt input
-- Chart management and state handling
-- Responsive grid layout
-- Sample prompts and loading states
-
-## 🔧 Customization
-
-### Adding New Chart Types
-1. Update the `ChartData` interface in `geminiService.ts`
-2. Add new case in `generateEChartsOption()` in `ChartCard.tsx`
-3. Update the AI prompt to include the new chart type
-
-### Styling Charts
-Modify the chart styling in `ChartCard.tsx`:
-- Colors: Update `baseOption` and series configurations
-- Fonts: Modify `textStyle` properties
-- Layout: Adjust sizing and positioning
-
-### AI Prompt Engineering
-Enhance the AI prompts in `geminiService.ts` to:
-- Support more chart types
-- Generate more realistic data
-- Include additional metadata
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **API Key Error**: Make sure your Gemini API key is correctly set in `.env.local`
-2. **Charts Not Rendering**: Check browser console for ECharts errors
-3. **AI Response Issues**: Check console logs for AI response debugging info
-4. **Build Errors**: Ensure all dependencies are installed with `npm install`
-
-## 🙏 Acknowledgments
-
-- **Google Gemini AI** for powerful natural language processing
-- **Apache ECharts** for beautiful, interactive visualizations
-- **Next.js Team** for the amazing React framework
-- **Tailwind CSS** for utility-first styling
-
----
-
-**Built with ❤️ for testing AI-powered data visualization**
