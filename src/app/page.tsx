@@ -1,17 +1,37 @@
 'use client';
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { generateChart, ChartData } from '@/services/geminiService';
 import ChartCard from '@/components/ChartCard';
+import { classifyIntent } from '@/utils/nlp'; 
+
 
 export default function Home() {
   const [charts, setCharts] = useState<(ChartData & { id: string })[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [prompt, setPrompt] = useState('');
+  useEffect(() => {
+  // Optional warm-up call
+    const warmUpModel = async () => {
+      try {
+        await classifyIntent('hello'); // or 'dummy'
+        console.log('Model warmed up');
+      } catch (error) {
+        console.error('Warm-up failed:', error);
+      }
+    };
+
+    warmUpModel();
+  }, []);
 
   const handleGenerateChart = async (userPrompt: string) => {
     setIsLoading(true);
     try {
+      const { intent, score } = await classifyIntent(userPrompt);
+      if (intent !== 'chart_command' || score < 0.3) {
+        alert("Please Only use chart-related commands. Try rephrasing your request.");
+        return;
+      }
       const chartData = await generateChart(userPrompt);
       const newChart = {
         ...chartData,
