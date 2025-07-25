@@ -35,6 +35,7 @@ An intelligent dashboard that generates interactive charts and visualizations us
 git clone <your-repo-url>
 cd ai-dash-testing
 npm install
+node src/scripts/createModel.js
 ```
 
 ### 2. Get Your Gemini API Key
